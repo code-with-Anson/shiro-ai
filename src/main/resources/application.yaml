@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: shiro-ai
+
+  datasource:
+    url: jdbc:mysql://${datasource.ip}:${datasource.port}/shiro-ai?useUnicode=true&allowPublicKeyRetrieval=TRUE&characterEncoding=utf8&serverTimezone=shanghai
+    username: ${datasource.username}
+    password: ${datasource.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  ai:
+    openai:
+      api-key: ${ai.openai.api-key}
+      base-url: ${ai.openai.base-url}
+  profiles:
+    active: shanghai
