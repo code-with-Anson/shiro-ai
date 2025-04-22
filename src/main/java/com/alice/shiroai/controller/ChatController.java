@@ -29,7 +29,7 @@ public class ChatController {
 
     @GetMapping(value = "/flux-alice", produces = "text/html;charset=UTF-8")
     @Operation(summary = "聊天接口")
-    public Flux<String> fluxchat(@RequestParam(value = "传递的问题", defaultValue = "给我讲个笑话？") String message) {
+    public Flux<String> fluxchat(@RequestParam(value = "message", defaultValue = "给我讲个笑话？") String message) {
         System.out.println();
         Flux<String> fluxchat = chatService.fluxchat(message);
         return fluxchat;

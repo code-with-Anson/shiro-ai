@@ -48,7 +48,7 @@ public class ChatService {
                 })
                 .doOnComplete(() -> {
                     // 完成时的处理
-                    System.out.println("Chat completed.");
+                    System.out.println("Alice Done:" + message);
                 });
     }
 }
