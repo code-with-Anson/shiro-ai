@@ -1,4 +1,12 @@
 spring:
+  ai:
+    openai:
+      api-key: ${ai.openai.api-key}
+      base-url: ${ai.openai.base-url}
+      chat:
+        options:
+          model: ${ai.openai.default-deepseek-model}
+
   application:
     name: shiro-ai
   datasource:
@@ -8,10 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: shanghai
-  ai:
-    openai:
-      base-url: ${ai.openai.base-url}
-      api-key: ${ai.openai.api-key}
+
 server:
   port: 3950
 
