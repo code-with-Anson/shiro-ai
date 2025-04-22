@@ -19,14 +19,6 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @GetMapping(value = "/alice", produces = "text/html;charset=UTF-8")
-    @Operation(summary = "聊天接口")
-    public String chat(@RequestParam(value = "传递的问题", defaultValue = "你好。请问你是？") String message) {
-        System.out.println();
-        String res = chatService.chat(message);
-        return res;
-    }
-
     @GetMapping(value = "/flux-alice", produces = "text/html;charset=UTF-8")
     @Operation(summary = "聊天接口")
     public Flux<String> fluxchat(@RequestParam(value = "message", defaultValue = "给我讲个笑话？") String message) {
