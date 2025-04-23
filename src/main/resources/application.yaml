@@ -8,6 +8,7 @@ spring:
           model: ${ai.openai.default-deepseek-model}
           temperature: 0.7
 
+
   application:
     name: shiro-ai
   datasource:

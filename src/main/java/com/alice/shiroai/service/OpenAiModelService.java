@@ -12,25 +12,26 @@ import reactor.core.publisher.Flux;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 这个接口用来演示如何使用Spring AI的OpenAiChatModel进行流式聊天
+ */
 @Service
-public class ChatService {
+public class OpenAiModelService {
 
     // 注入OpenAiChatModel
     private final OpenAiChatModel openAiChatModel;
     @Value("classpath:/prompts/alice-system-message.st")
     private Resource systemResource;
 
-    public ChatService(OpenAiChatModel openAiChatModel) {
+    public OpenAiModelService(OpenAiChatModel openAiChatModel) {
         this.openAiChatModel = openAiChatModel;
     }
 
     /**
-     * 流式聊天
+     * 流式聊天接口
      *
-     * @param message 消息
-     * @return 响应
-     * Author: Anson
+     * @param message 用户消息
+     * @return 返回流式聊天结果
      */
     public Flux<String> fluxchat(String message) {
         Message usermessage = new UserMessage(message);
