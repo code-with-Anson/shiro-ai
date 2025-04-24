@@ -7,8 +7,6 @@ spring:
         options:
           model: ${ai.openai.default-deepseek-model}
           temperature: 0.7
-
-
   application:
     name: shiro-ai
   datasource:
@@ -18,7 +16,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: shanghai
+  cloud:
+    nacos:
+      server-addr: ${nacos.server-addr}
 
 server:
   port: 3950
-
+logging:
+  charset:
+    file: UTF-8
+  level:
+    com.alice.shiroai: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    name: shiro-ai.log
+    path: "logs/${spring.application.name}"

@@ -1,5 +1,9 @@
 ### 自定义 ###
 application-shanghai.yaml
+shiro-ai.log
+shiro-ai.pid
+shiro-ai.iws
+shiro-ai.iml
 
 HELP.md
 target/
