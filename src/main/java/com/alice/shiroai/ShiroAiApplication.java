@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.alice.shiroai.mapper")
 @SpringBootApplication
 public class ShiroAiApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ShiroAiApplication.class, args);
     }

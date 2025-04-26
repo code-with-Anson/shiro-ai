@@ -1,6 +1,6 @@
 ### 自定义 ###
 application-shanghai.yaml
-shiro-ai.log
+*.log
 
 HELP.md
 target/

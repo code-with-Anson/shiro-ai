@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/ai")
+@RequestMapping("/")
 @Tag(name = "ai聊天控制器")
 @Slf4j
 public class ChatMessageController {
