@@ -39,4 +39,15 @@ public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatM
         return midori;
     }
 
+    /**
+     * 测试持久化记忆
+     *
+     * @param message
+     * @return
+     */
+    @Override
+    public Flux<String> chatWithMemory(String message) {
+        return null;
+    }
+
 }

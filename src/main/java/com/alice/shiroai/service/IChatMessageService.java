@@ -15,4 +15,6 @@ import reactor.core.publisher.Flux;
 
 public interface IChatMessageService extends IService<ChatMessage> {
     Flux<String> chatWithOpenAiByMomoi(String message);
+    
+    Flux<String> chatWithMemory(String message);
 }
