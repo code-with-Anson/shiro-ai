@@ -1,6 +1,7 @@
 ### 自定义 ###
 application-shanghai.yaml
 *.log
+*.gz
 
 HELP.md
 target/

@@ -1,14 +1,17 @@
 package com.alice.shiroai.service.impl;
 
+import com.alice.shiroai.domain.po.ChatMessage;
+import com.alice.shiroai.mapper.ChatMessageMapper;
+import com.alice.shiroai.service.IChatMessageService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-
 @Service
-public class ChatMessageServiceImpl {
+public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatMessage> implements IChatMessageService {
     private final ChatClient Momoi;
 
     @Value("classpath:/prompts/alice-system-message.st")
@@ -24,6 +27,7 @@ public class ChatMessageServiceImpl {
      * @param message
      * @return
      */
+    @Override
     public Flux<String> chatWithOpenAiByMomoi(String message) {
 
         // 直接使用链式编程传入参数
