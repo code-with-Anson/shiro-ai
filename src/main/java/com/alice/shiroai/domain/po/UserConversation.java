@@ -29,7 +29,7 @@ public class UserConversation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Schema(description = "用户id (雪花 ID)")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
-    private String userId;
+    private Long userId;
     @Schema(description = "对话id")
     private String conversationId;
     @Schema(description = "会话主题")
