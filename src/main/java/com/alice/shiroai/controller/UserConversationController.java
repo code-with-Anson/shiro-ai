@@ -2,7 +2,9 @@ package com.alice.shiroai.controller;
 
 
 import com.alice.shiroai.domain.dto.CreateConversationDTO;
+import com.alice.shiroai.domain.dto.DeleteConversationDTO;
 import com.alice.shiroai.domain.dto.PageDTO;
+import com.alice.shiroai.domain.dto.UpdateConversationTopicDTO;
 import com.alice.shiroai.domain.po.UserConversation;
 import com.alice.shiroai.service.IUserConversationService;
 import com.alice.shiroai.utils.R;
@@ -41,6 +43,18 @@ public class UserConversationController {
     @Operation(summary = "分页获取用户历史会话记录")
     public R<Page<UserConversation>> getUserConversations(@RequestBody PageDTO pageDTO) {
         return userConversationService.getUserConversations(pageDTO);
+    }
+
+    @PostMapping("/update")
+    @Operation(summary = "更新用户会话主题")
+    public R<String> updateConversationTopic(@RequestBody UpdateConversationTopicDTO updateDTO) {
+        return userConversationService.updateConversationTopic(updateDTO);
+    }
+
+    @PostMapping("/delete")
+    @Operation(summary = "删除用户会话")
+    public R<String> deleteConversation(@RequestBody DeleteConversationDTO deleteDTO) {
+        return userConversationService.deleteConversation(deleteDTO.getConversationId());
     }
 }
 
