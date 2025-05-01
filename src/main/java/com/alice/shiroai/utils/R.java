@@ -3,19 +3,14 @@ package com.alice.shiroai.utils;
 
 import com.alice.shiroai.enums.ResponseCode;
 import com.alice.shiroai.exception.BaseException;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Schema(description = "统一响应包装类")
 public class R<T> {
-    @Schema(description = "返回给前端的：状态码")
     private int code;
-    @Schema(description = "返回给前端的：说明信息")
     private String msg;
-    @Schema(description = "返回给前端的：数据对象")
     private T data;
 
     // 全参构造器

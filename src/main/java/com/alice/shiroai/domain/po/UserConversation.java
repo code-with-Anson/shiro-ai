@@ -39,6 +39,4 @@ public class UserConversation implements Serializable {
     private LocalDateTime createTime;
     @Schema(description = "修改时间")
     private LocalDateTime updateTime;
-
-
 }

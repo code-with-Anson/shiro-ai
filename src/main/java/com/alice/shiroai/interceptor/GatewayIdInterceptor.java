@@ -1,8 +1,7 @@
 package com.alice.shiroai.interceptor;
 
-
+import cn.hutool.core.util.StrUtil;
 import com.alice.shiroai.utils.UserContext;
-import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
