@@ -1,4 +1,4 @@
-package com.alice.shiroai.domain.po;
+package com.alice.shiroai.domain.vo;
 
 public class CreateConversationVO {
 }

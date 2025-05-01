@@ -30,5 +30,4 @@ logging:
   pattern:
     dateformat: HH:mm:ss:SSS
   file:
-    name: shiro-ai.log
     path: "logs/${spring.application.name}"
