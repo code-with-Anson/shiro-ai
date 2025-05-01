@@ -1,8 +1,10 @@
 package com.alice.shiroai.service;
 
 import com.alice.shiroai.domain.dto.CreateConversationDTO;
+import com.alice.shiroai.domain.dto.PageDTO;
 import com.alice.shiroai.domain.po.UserConversation;
 import com.alice.shiroai.utils.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -15,4 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserConversationService extends IService<UserConversation> {
     R<String> createConversation(CreateConversationDTO createConversationDTO);
+
+    R<Page<UserConversation>> getUserConversations(PageDTO pageDTO);
+
 }

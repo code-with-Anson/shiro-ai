@@ -1,12 +1,14 @@
 package com.alice.shiroai.service.impl;
 
 import com.alice.shiroai.domain.dto.CreateConversationDTO;
+import com.alice.shiroai.domain.dto.PageDTO;
 import com.alice.shiroai.domain.po.UserConversation;
 import com.alice.shiroai.mapper.UserConversationMapper;
 import com.alice.shiroai.service.IUserConversationService;
 import com.alice.shiroai.utils.R;
 import com.alice.shiroai.utils.UserContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,12 @@ public class UserConversationServiceImpl extends ServiceImpl<UserConversationMap
 
     @Override
     public R<String> createConversation(CreateConversationDTO createConversationDTO) {
-        Long userId = UserContext.getUser();
+        Long userId = null;
+        if (UserContext.getUser() != null) {
+            userId = UserContext.getUser();
+        }
+
+
         // 创建新的会话实体
         UserConversation newUserConversation = new UserConversation();
         newUserConversation.setUserId(userId);
@@ -43,5 +50,22 @@ public class UserConversationServiceImpl extends ServiceImpl<UserConversationMap
             this.save(newUserConversation);
         }
         return R.success("成功创建会话");
+    }
+
+    @Override
+    public R<Page<UserConversation>> getUserConversations(PageDTO pageDTO) {
+        Long userId = UserContext.getUser();
+        if (userId == null) {
+            return R.failure("用户未登录");
+        }
+
+        Page<UserConversation> page = new Page<>(pageDTO.getCurrentPage(), pageDTO.getPageSize());
+        LambdaQueryWrapper<UserConversation> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserConversation::getUserId, userId)
+                .orderByDesc(UserConversation::getCreateTime);
+
+        Page<UserConversation> userConversationsPage = this.page(page, queryWrapper);
+
+        return R.success(userConversationsPage);
     }
 }
