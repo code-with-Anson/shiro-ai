@@ -1,5 +1,6 @@
 package com.alice.shiroai.service;
 
+import com.alice.shiroai.domain.dto.ChatRequestDTO;
 import com.alice.shiroai.domain.po.ChatMessage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import reactor.core.publisher.Flux;
@@ -14,7 +15,7 @@ import reactor.core.publisher.Flux;
  */
 
 public interface IChatMessageService extends IService<ChatMessage> {
-    Flux<String> chatWithOpenAiByMomoi(String message);
-    
-    Flux<String> chatWithMemory(String message);
+    Flux<String> chatWithOpenAiByMomoi(ChatRequestDTO chatRequestDTO);
+
+
 }

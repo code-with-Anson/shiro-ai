@@ -1,7 +1,6 @@
 package com.alice.shiroai.config;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -26,9 +25,10 @@ public class AiConfig {
     public ChatClient Momoi(OpenAiChatModel openAiChatModel, ChatMemory chatMemory) {
         return ChatClient.builder(openAiChatModel)
                 .defaultSystem(systemResource)
-                .defaultAdvisors(
-                        new MessageChatMemoryAdvisor(chatMemory) // 使用内存聊天记录
-                )
+//                这里注释掉了临时内存聊天记录，改用MySQL数据库
+//                .defaultAdvisors(
+//                        new MessageChatMemoryAdvisor(chatMemory) // 使用内存聊天记录
+//                )
                 .build();
     }
 }

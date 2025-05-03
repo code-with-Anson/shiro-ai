@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     public Object handleBadRequestException(BaseException e) {
         log.error("自定义异常 -> {} , 异常原因：{}  ", e.getClass().getName(), e.getMessage());
         log.debug("详细异常信息", e);
-        return processResponse(e);
+        return R.failure(e);
     }
 
     private ResponseEntity<R<Void>> processResponse(BaseException e) {
