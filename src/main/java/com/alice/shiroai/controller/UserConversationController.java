@@ -52,9 +52,9 @@ public class UserConversationController {
     }
 
     @PostMapping("/delete")
-    @Operation(summary = "删除用户会话")
-    public R<String> deleteConversation(@RequestBody DeleteConversationDTO deleteDTO) {
-        return userConversationService.deleteConversation(deleteDTO.getConversationId());
+    @Operation(summary = "批量删除用户会话")
+    public R<String> deleteConversations(@RequestBody DeleteConversationDTO deleteDTO) {
+        return userConversationService.batchDeleteConversations(deleteDTO);
     }
 }
 

@@ -1,6 +1,7 @@
 package com.alice.shiroai.service;
 
 import com.alice.shiroai.domain.dto.CreateConversationDTO;
+import com.alice.shiroai.domain.dto.DeleteConversationDTO;
 import com.alice.shiroai.domain.dto.PageDTO;
 import com.alice.shiroai.domain.dto.UpdateConversationTopicDTO;
 import com.alice.shiroai.domain.po.UserConversation;
@@ -24,5 +25,9 @@ public interface IUserConversationService extends IService<UserConversation> {
     R<String> updateConversationTopic(UpdateConversationTopicDTO updateDTO);
 
     R<String> deleteConversation(String conversationId);
+
+
+    // 新增批量删除方法
+    R<String> batchDeleteConversations(DeleteConversationDTO deleteDTO);
 
 }

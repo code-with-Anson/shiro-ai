@@ -1,6 +1,7 @@
 package com.alice.shiroai.service.impl;
 
 import com.alice.shiroai.domain.dto.CreateConversationDTO;
+import com.alice.shiroai.domain.dto.DeleteConversationDTO;
 import com.alice.shiroai.domain.dto.PageDTO;
 import com.alice.shiroai.domain.dto.UpdateConversationTopicDTO;
 import com.alice.shiroai.domain.po.ChatMessage;
@@ -16,6 +17,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -57,7 +60,7 @@ public class UserConversationServiceImpl extends ServiceImpl<UserConversationMap
             // 会话不存在，正常创建
             this.save(newUserConversation);
         }
-        return R.success("成功创建会话");
+        return R.success("成功创建会话，这是uuid" + createConversationDTO.getConversationId());
     }
 
     @Override
@@ -128,5 +131,37 @@ public class UserConversationServiceImpl extends ServiceImpl<UserConversationMap
         return R.success("会话删除成功");
     }
 
+    @Override
+    public R<String> batchDeleteConversations(DeleteConversationDTO deleteDTO) {
+        Long userId = UserContext.getUser();
+        List<String> conversationIds = deleteDTO.getConversationIds();
 
+        if (conversationIds == null || conversationIds.isEmpty()) {
+            return R.failure("会话ID列表不能为空");
+        }
+
+        // 验证会话是否都属于当前用户
+        LambdaQueryWrapper<UserConversation> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserConversation::getUserId, userId)
+                .in(UserConversation::getConversationId, conversationIds);
+
+        List<UserConversation> userConversations = this.list(queryWrapper);
+
+        // 检查是否所有会话都找到
+        if (userConversations.size() != conversationIds.size()) {
+            return R.failure("部分会话不存在或没有权限删除");
+        }
+
+        // 1. 先删除关联的聊天消息
+        for (String conversationId : conversationIds) {
+            LambdaQueryWrapper<ChatMessage> messageQueryWrapper = new LambdaQueryWrapper<>();
+            messageQueryWrapper.eq(ChatMessage::getConversationId, conversationId);
+            chatMessageService.remove(messageQueryWrapper);
+        }
+
+        // 2. 直接使用条件删除，而不是通过ID列表
+        boolean success = this.remove(queryWrapper);
+
+        return success ? R.success("批量删除会话成功") : R.failure("批量删除会话失败");
+    }
 }

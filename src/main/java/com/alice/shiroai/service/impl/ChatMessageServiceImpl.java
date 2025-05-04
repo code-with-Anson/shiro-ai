@@ -1,12 +1,14 @@
 package com.alice.shiroai.service.impl;
 
 import com.alice.shiroai.domain.dto.ChatRequestDTO;
+import com.alice.shiroai.domain.dto.ConversationMessageQueryDTO;
 import com.alice.shiroai.domain.po.ChatMessage;
 import com.alice.shiroai.domain.po.UserConversation;
 import com.alice.shiroai.exception.ConversationDontExistException;
 import com.alice.shiroai.mapper.ChatMessageMapper;
 import com.alice.shiroai.mapper.UserConversationMapper;
 import com.alice.shiroai.service.IChatMessageService;
+import com.alice.shiroai.utils.R;
 import com.alice.shiroai.utils.UserContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -121,6 +123,28 @@ public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatM
 
     }
 
+    @Override
+    public R<List<ChatMessage>> getMessagesByConversationId(ConversationMessageQueryDTO queryDTO) {
+        Long userId = UserContext.getUser();
+        String userIdStr = userId != null ? userId.toString() : null;
+        String conversationId = queryDTO.getConversationId();
+
+        // 验证会话是否存在且属于当前用户
+        boolean isExists = isExists(conversationId, userIdStr);
+        if (!isExists) {
+            throw new ConversationDontExistException("会话不存在或不属于当前用户");
+        }
+
+        // 查询该会话的所有消息
+        LambdaQueryWrapper<ChatMessage> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ChatMessage::getConversationId, conversationId)
+                .orderByAsc(ChatMessage::getCreatedTime); // 按时间顺序排序
+
+        List<ChatMessage> messages = this.list(queryWrapper);
+
+        log.info("查询到会话ID: {}的消息{}条", conversationId, messages.size());
+        return R.success(messages);
+    }
 
     private boolean isExists(String conversationId, String userId) {
         LambdaQueryWrapper<UserConversation> queryWrapper = new LambdaQueryWrapper<>();

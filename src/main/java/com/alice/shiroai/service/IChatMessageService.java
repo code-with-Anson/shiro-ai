@@ -1,9 +1,13 @@
 package com.alice.shiroai.service;
 
 import com.alice.shiroai.domain.dto.ChatRequestDTO;
+import com.alice.shiroai.domain.dto.ConversationMessageQueryDTO;
 import com.alice.shiroai.domain.po.ChatMessage;
+import com.alice.shiroai.utils.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +21,6 @@ import reactor.core.publisher.Flux;
 public interface IChatMessageService extends IService<ChatMessage> {
     Flux<String> chatWithOpenAiByMomoi(ChatRequestDTO chatRequestDTO);
 
-
+    // 添加新方法
+    R<List<ChatMessage>> getMessagesByConversationId(ConversationMessageQueryDTO queryDTO);
 }
