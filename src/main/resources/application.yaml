@@ -33,4 +33,3 @@ logging:
     path: "logs/${spring.application.name}"
 springdoc:
   default-flat-param-object: true
-
