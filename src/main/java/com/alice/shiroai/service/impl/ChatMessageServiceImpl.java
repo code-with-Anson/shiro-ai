@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Flux;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,8 +114,7 @@ public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatM
                     .setConversationId(conversationId)
                     .setUserId(userIdStr)
                     .setRole("assistant")
-                    .setContent(fullResponse.toString())
-                    .setCreatedTime(LocalDateTime.now());
+                    .setContent(fullResponse.toString());
             this.save(assistantChatMessage);
             log.info("AI回复已保存到数据库，会话ID: {}", conversationId);
         });

@@ -23,17 +23,21 @@ import java.util.List;
 public class ChatMessageController {
     private final IChatMessageService IchatMessageService;
 
+
     public ChatMessageController(IChatMessageService IchatMessageService) {
         this.IchatMessageService = IchatMessageService;
+
     }
 
-    @PostMapping(value = "/flux-ChatClient/OpenAi-momoi", produces = "text/html;charset=UTF-8")
+    //    @PostMapping(value = "/flux-ChatClient/OpenAi-momoi", produces = "text/html;charset=UTF-8")
+    @PostMapping(value = "/flux-ChatClient/OpenAi-momoi", produces = "text/event-stream;charset=UTF-8")
     @Operation(summary = "链式实现ChatClient聊天接口(POST方式)")
     public Flux<String> chatWithOpenAiByMomoi(@RequestBody ChatRequestDTO chatRequestDTO) {
         log.info("带上下文聊天接口被调用，会话ID: {}, 消息内容: {}",
                 chatRequestDTO.getConversationId(), chatRequestDTO.getMessage());
         return IchatMessageService.chatWithOpenAiByMomoi(chatRequestDTO);
     }
+
 
     @PostMapping("/messages/queryMessagesByConversationId")
     @Operation(summary = "获取指定会话的所有消息")
