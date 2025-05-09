@@ -248,6 +248,6 @@ java -jar target/shiro-ai-0.0.1-SNAPSHOT.jar
 ## 📞 联系方式
 
 - 项目作者：Anson
-- Email：anson@example.com
+- Email：**a2795757650@gmail.com**
 
 © 2025 汐落(Shiro) - 让财务管理如潮汐般自然流畅 🌊
